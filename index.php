@@ -1,3 +1,3 @@
 <?php
-require('model/model.php');
-require('view/indexView.php');
+require_once('controller/frontend.php');
+listeChapitre();
