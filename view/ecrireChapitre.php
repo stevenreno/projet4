@@ -18,7 +18,7 @@
             </div>
             <div>
                 <label for="titre">En ligne :</label>
-                <input type="number" id="en_ligne" name="en_ligne">
+                <input type="checkbox" id="en_ligne" name="en_ligne" value="1">
             </div>
             <div>
                 <label for="texte">Texte :</label>
