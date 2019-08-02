@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <form action="/ma-page-de-traitement" method="post">
+        <form action="index.php?action=submitPost" method="post">
             <div>
                 <label for="chapitre">Chapitre : </label>
                 <input type="number" id="numero_chapitre" name="numero_chapitre">
@@ -18,7 +18,7 @@
             </div>
             <div>
                 <label for="texte">Texte :</label>
-                <textarea id="texte" name="texte"></textarea>
+                <textarea id="texte" name="contenu"></textarea>
             </div>
             <div class="button">
                 <button type="submit">Envoyer le chapitre</button>
