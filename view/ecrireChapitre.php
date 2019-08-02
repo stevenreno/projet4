@@ -17,6 +17,10 @@
                 <input type="text" id="titre" name="titre">
             </div>
             <div>
+                <label for="titre">En ligne :</label>
+                <input type="number" id="en_ligne" name="en_ligne">
+            </div>
+            <div>
                 <label for="texte">Texte :</label>
                 <textarea id="texte" name="contenu"></textarea>
             </div>

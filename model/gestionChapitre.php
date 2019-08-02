@@ -8,10 +8,10 @@ class gestionChapitre extends ConnexionMySql {
 
         return $req;
     }
-    public function createPost() {
+    public function createPost($titre, $contenu, $numero_chapitre, $en_ligne) {
         $bdd = $this->dbConnect();
         $req = $bdd->prepare('INSERT INTO chapitre(titre, contenu, numero_chapitre, en_ligne) VALUES (?, ?, ?, ?)');
-        $newPost = $req->execute(array($title, $content));
+        $newPost = $req->execute(array($titre, $contenu, $numero_chapitre, $en_ligne));
 
         return $newPost;
     }
