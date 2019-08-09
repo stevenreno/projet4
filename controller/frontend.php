@@ -20,5 +20,5 @@ function listeCommentaire()
 function postUnCommentaire($titre, $auteurs, $contenu_commentaire)
 {
     $gestionCommentaire = new gestionCommentaire();
-    $nouveauxCommentaire = $gestionCommentaire->createPost($titre, $auteurs, $contenu_commentaire);
+    $nouveauxCommentaire = $gestionCommentaire->createPost($titre, $auteurs, $contenu_commentaire);//*commentaire = new commentaire..
 }

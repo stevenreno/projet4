@@ -5,7 +5,7 @@ class gestionChapitre extends ConnexionMySql {
     {
         $db = $this->dbConnect();
         $req = $db->query('SELECT * from chapitre WHERE en_ligne= 1');
-
+//une boucle pour retourner un tableau
         return $req;
     }
     public function createPost($titre, $contenu, $numero_chapitre, $en_ligne) {
