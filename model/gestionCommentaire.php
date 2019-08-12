@@ -1,5 +1,5 @@
 <?php
-require_once('model/mysql.php');
+require_once('model/manager.php');
 class gestionCommentaire extends ConnexionMySql {
     public function getPosts()
     {

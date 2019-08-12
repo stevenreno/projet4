@@ -2,6 +2,8 @@
 require_once('model/gestionChapitre.php');
 require_once('model/gestionCommentaire.php');
 require_once('view/ecrireCommentaire.php');
+require_once ('model/chapitre.php');
+require_once ('view/view.php');
 
    
 class Frontend {
@@ -9,7 +11,13 @@ class Frontend {
     public function listeChapitre(){
         $gestionChapitre = new gestionChapitre();
         $chapitres = $gestionChapitre->getPosts();
-        require_once('view/vueChapitre.php');
+        //$titre = "bonjour";
+        //require_once('view/vueChapitre.php');
+        $view = new View();
+        $view->addVariable("titre","bonjour");
+        $view->addVariable("listeChapitre",$chapitres);
+        $view->generate('view/vueChapitre.php');
+
     }
     public function listeCommentaire()
     {
