@@ -1,6 +1,6 @@
 <?php
 require_once('model/gestionChapitre.php');
-require_once('view/ecrireChapitre.php');
+//require_once('view/ecrireChapitre.php');
 
 class Backend {
     private $titre;

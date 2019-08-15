@@ -1,8 +1,8 @@
 <?php
-require_once('model/manager.php');
+require_once('model/abstractManager.php');
 require_once('model/chapitre.php');
 
-class gestionChapitre extends ConnexionMySql {
+class gestionChapitre extends AbstractManager {
 
 
     public function getPosts()
@@ -15,10 +15,20 @@ class gestionChapitre extends ConnexionMySql {
         }
         return $chapitre;
     }
-    public function createPost($titre, $contenu, $numero_chapitre, $en_ligne) {
+    public function getPost($chapitreId)
+    {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO chapitre(titre, contenu, numero_chapitre, en_ligne) VALUES (?, ?, ?, ?)');
-        $newPost = $req->execute(array($titre, $contenu, $numero_chapitre, $en_ligne));
+        $req = $db->prepare('SELECT * from chapitre WHERE id=?');
+        $req->execute(array($chapitreId));
+        while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
+            $chapitre[]= new Chapitre($donnees);
+        }
+        return $chapitre;
+    }
+    public function createPost($titre, $contenu, $numero_chapitre, $en_ligne, $date_creation) {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO chapitre(titre, contenu, numero_chapitre, en_ligne, date_creation) VALUES (?, ?, ?, ?,NOW())');
+        $newPost = $req->execute(array($titre, $contenu, $numero_chapitre, $en_ligne, $date_creation));
 
         return $newPost;
     }

@@ -20,9 +20,22 @@ if (isset($_GET['action'])) {
             print'Contenu vide !';
         }
     }
+    if ($_GET['action'] == 'lirePlus') {
+        if (!empty($_GET['id'])) {
+            $frontend->chapitreEntier($_GET['id']);
+        } else {
+            print 'Pas de chapitre';
+        }
+    }
+    if ($_GET['action'] == 'signaler') {
+        if (!empty($_GET['id_commentaire'])) {
+            $frontend->signalerCommentaire($_GET['id_commentaire']);
+        } else {
+            print '';
+        }
+    }
 }
 else
 {
     $frontend->listeChapitre();
-    $frontend->listeCommentaire();
 };

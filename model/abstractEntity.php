@@ -9,8 +9,8 @@ class AbstractEntity {
     public function hydrate($donnees)
     {
         foreach ($donnees as $key => $value){
-            $method = "set".ucfirst($key);
-            echo $method;
+            $method = "set".str_replace('_','',ucwords($key,'_'));
+            //echo $method;
             if(method_exists($this,$method)){
                 $this->$method($value);
             }

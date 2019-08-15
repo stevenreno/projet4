@@ -1,18 +1,18 @@
 <?php
-require_once('model/manager.php');
-class gestionCommentaire extends ConnexionMySql {
-    public function getPosts()
-    {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT * from commentaire');
+require_once('model/abstractManager.php');
+require_once ('model/commentaire.php');
+class gestionCommentaire extends AbstractManager {
 
-        return $req;
-    }
-    public function createPost($auteurs, $titre, $contenu_commentaire) {
+    public function getCommentaires($chapitreId){
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO commentaire(auteurs, titre, contenu_commentaire) VALUES (?, ?, ?)');
-        $newPost = $req->execute(array($auteurs, $titre, $contenu_commentaire));
-
-        return $newPost;
+        $req = $db->prepare('SELECT * from commentaire WHERE id_chapitre=?');
+        $req->execute(array($chapitreId));
+            while ($donnees = $req->fetch(PDO::FETCH_ASSOC)) {
+                $commentaire[] = new Commentaire($donnees);
+            }
+            if (isset($commentaire)) {
+                return $commentaire;
+            }
     }
+
 }
