@@ -10,10 +10,17 @@ class Frontend {
 
     public function listeChapitre(){
         $gestionChapitre = new gestionChapitre();
-        $chapitres = $gestionChapitre->getPosts();
+        $nombreDeChapitre = $gestionChapitre->getNbChapitre();
+        $chapitreParPage = 3;
+        $page = $gestionChapitre->page($nombreDeChapitre,$chapitreParPage);
+        $pageCourante = $gestionChapitre->getPageActuelle();
+        $depart = ($pageCourante-1)*$chapitreParPage;
+        $chapitres = $gestionChapitre->getPosts($depart,$chapitreParPage);
         $view = new View();
         //$view->addVariable("titre",$contenu);
         $view->addVariable("listeChapitre",$chapitres);
+        $view->addVariable("pageCourante",$pageCourante);
+        $view->addVariable("pagesTotales", $page);
         $view->generate('view/vueAccueil.php');
 
     }

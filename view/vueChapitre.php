@@ -14,7 +14,8 @@
             <a href="index.php?action=signaler&amp;id_commentaire=<?=$comment->_id;?>">Signaler le commentaire</a>
         </div>
     </div>
-<?php }}}; ?>
+<?php }}};?>
+
 
 
 

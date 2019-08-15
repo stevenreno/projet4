@@ -4,12 +4,11 @@ require_once('model/chapitre.php');
 
 class gestionChapitre extends AbstractManager {
 
-
-    public function getPosts()
+    public function getPosts($depart,$chapitreParPage)
     {
         $db = $this->dbConnect();
         $chapitre = array();
-        $req = $db->query('SELECT * from chapitre WHERE en_ligne= 1');
+        $req = $db->query('SELECT * from chapitre WHERE en_ligne= 1 ORDER BY id DESC LIMIT '.$depart.','.$chapitreParPage);
         while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
             $chapitre[]= new Chapitre($donnees);
         }
@@ -31,5 +30,27 @@ class gestionChapitre extends AbstractManager {
         $newPost = $req->execute(array($titre, $contenu, $numero_chapitre, $en_ligne, $date_creation));
 
         return $newPost;
+    }
+    public function getNbChapitre()
+    {
+        $db = $this->dbConnect();
+        $totalChapitre = $db->query('SELECT id from chapitre');
+        $nombreDeChapitre = $totalChapitre->rowCount();
+        return $nombreDeChapitre;
+    }
+    public function page($nombreDeChapitre,$chapitreParPage)
+    {
+        $pagesTotales = ceil($nombreDeChapitre/$chapitreParPage);
+        return $pagesTotales;
+    }
+    public function getPageActuelle()
+    {
+        if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0) {
+            $_GET['page'] = intval($_GET['page']);
+            $pageCourante = $_GET['page'];
+        } else {
+            $pageCourante = 1;
+        }
+        return $pageCourante;
     }
 }
