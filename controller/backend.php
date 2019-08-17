@@ -1,20 +1,50 @@
 <?php
 require_once('model/gestionChapitre.php');
-//require_once('view/ecrireChapitre.php');
+require_once ('view/view.php');
+//require_once('view/ecrireChapitre');
 
 class Backend {
-    private $titre;
-    private $contenu;
-    private $numero_chapitre;
-    private $en_ligne;
+    public function afficherAdministration()
+    {
+        $gestionChapitre = new gestionChapitre();
+        $chapitres = $gestionChapitre->getAllPosts();
+        $view = new View();
+        //$view->addVariable("titre",$contenu);
+        $view->addVariable("listeChapitre",$chapitres);
+        $view->generate('view/vueAdministration.php');
+    }
+
+    public function supprimerChapitre($id){
+        $supprimerChapitre = new gestionChapitre();
+        $chapitres = $supprimerChapitre->supprimerChapitre($id);
+        header("Location: index.php?action=administration");
+    }
+
+    public function afficherModifierChapitre($chapitreId)
+    {
+        $gestionChapitre = new gestionChapitre();
+        $chapitre = $gestionChapitre->getPost($chapitreId);
+        $view = new View();
+        $view->addVariable("chapitre",$chapitre);
+        $view->generate('view/vueModifierChapitre.php');
+    }
+
+    public function modifierChapitre($titre, $contenu, $en_ligne, $numero_chapitre, $id){
+        $gestionChapitre = new gestionChapitre();
+        $chapitre = $gestionChapitre->modifierChapitre($titre, $contenu, $en_ligne, $numero_chapitre, $id);
+        header("Location: index.php?action=administration");
+
+    }
+    public function afficherCreerChapitre(){
+        $view = new View();
+        $view->generate('view/vueCreerChapitre.php');
+    }
+
     
     public function postUnChapitre($titre, $contenu, $numero_chapitre, $en_ligne)
     {
-        $this -> titre = $titre;
-        $this-> contenu = $contenu;
-        $this-> numero_chapitre = $numero_chapitre;
-        $this-> en_ligne=$en_ligne;
         $gestionChapitre = new gestionChapitre();
-        $nouveauxChapitre = $gestionChapitre->createPost($titre, $contenu, $numero_chapitre, $en_ligne);
+        $chapitre = $gestionChapitre->createPost($titre, $contenu, $numero_chapitre, $en_ligne);
+        header("Location: index.php?action=administration");
     }
 }

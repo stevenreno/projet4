@@ -2,6 +2,7 @@
 require_once('model/gestionChapitre.php');
 require_once('model/gestionCommentaire.php');
 require_once ('model/gestionSignalement.php');
+require_once ('model/gestionConnexion.php');
 //require_once('view/ecrireCommentaire.php');
 require_once ('model/chapitre.php');
 require_once ('view/view.php');
@@ -46,5 +47,34 @@ class Frontend {
     {
         $gestionSignalement = new gestionSignalement();
         $signalement = $gestionSignalement->postSignalement($commentaireId);
+    }
+    public function afficherConnexion()
+    {
+        $view = new View();
+        $view->generate('view/vueConnexion.php');
+    }
+
+    public function connexion($pseudo, $mot_de_passe)
+    {
+        $gestionConnexion = new GestionConnexion();
+        $connexion = $gestionConnexion->connexion($pseudo);
+        if (isset($connexion)){
+            foreach ($connexion as $key => $object){
+                $id = $object->_id;
+                $pseudo = $object->_pseudo;
+                $mot_de_passe = $object->_mot_de_passe;
+            }
+            if (md5($_POST['mot_de_passe']) == $mot_de_passe)
+            {
+                $_SESSION['id']= $id;
+                $_SESSION['pseudo']=$pseudo;
+                header("Location: index.php");
+                //echo ("redirection vers le backend");
+            } else {
+                echo("connexion raté");
+            }
+        } else {
+                echo("Raté");
+        }
     }
 }

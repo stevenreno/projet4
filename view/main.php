@@ -14,6 +14,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="public/img/flavicon-book.png" />
     <meta property="og:description" content="Blog publiant 'Billet simple pour l'Alaska' de Jean Forteroche" />
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
     <!-- ajouter meta -->
 </head>
 
@@ -27,14 +29,11 @@
                     <li><a href="index.php">Accueil</a></li>
                     <li><a href="index.php?action=about">À propos</a></li>
                     <?php
-                    if (!empty($_SESSION)) {
+                    if (!empty($_SESSION['pseudo'])) {
                         echo '<li><a href="#"><i class="fas fa-user"></i> ' . htmlspecialchars($_SESSION['pseudo']) . '</a></li>';
-                    }
-                    if(!empty($_SESSION) && $_SESSION['groups_id'] == '1') {
-                        echo '<li><a href="index.php?action=admin-login-view"><i class="fas fa-key"></i> Administration</a></li>';
-                    }
-                    if (!empty($_SESSION))  {
                         echo '<li><a href="index.php?action=logout">Déconnexion</a></li>';
+                        echo '<li><a href="index.php?action=administration"><i class="fas fa-key"></i> Administration</a></li>';
+
                     } else {
                         echo '<li><a href="index.php?action=login">Connexion / Inscription</a></li>';
                     }

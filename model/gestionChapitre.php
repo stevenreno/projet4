@@ -24,10 +24,10 @@ class gestionChapitre extends AbstractManager {
         }
         return $chapitre;
     }
-    public function createPost($titre, $contenu, $numero_chapitre, $en_ligne, $date_creation) {
+    public function createPost($titre, $contenu, $numero_chapitre, $en_ligne) {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO chapitre(titre, contenu, numero_chapitre, en_ligne, date_creation) VALUES (?, ?, ?, ?,NOW())');
-        $newPost = $req->execute(array($titre, $contenu, $numero_chapitre, $en_ligne, $date_creation));
+        $newPost = $req->execute(array($titre, $contenu, $numero_chapitre, $en_ligne));
 
         return $newPost;
     }
@@ -52,5 +52,25 @@ class gestionChapitre extends AbstractManager {
             $pageCourante = 1;
         }
         return $pageCourante;
+    }
+    public function getAllPosts(){
+        $db = $this->dbConnect();
+        $chapitre = array();
+        $req = $db->query('SELECT * from chapitre');
+        while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
+            $chapitre[]= new Chapitre($donnees);
+        }
+        return $chapitre;
+    }
+    public function supprimerChapitre($id){
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE from chapitre WHERE id=?;');
+        $newDelete = $req->execute(array($id));
+        return $newDelete;
+    }
+    public function modifierChapitre($titre, $contenu, $en_ligne, $numero_chapitre, $id){
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE chapitre SET titre = ?, contenu = ?, en_ligne = ?, numero_chapitre = ? WHERE id=?;');
+        $newDelete = $req->execute(array($titre, $contenu, $en_ligne, $numero_chapitre, $id));
     }
 }
