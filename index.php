@@ -60,6 +60,12 @@ if (isset($_GET['action'])) {
             print'Contenu vide !';
         }
     }
+    if ($_GET['action'] == 'supprimerCommentaire'){
+        $backend->supprimerCommentaire($_GET['id']);
+    }
+    if ($_GET['action'] == 'validerCommentaire'){
+        $backend->validerCommentaire($_GET['id']);
+    }
 
 }
 else

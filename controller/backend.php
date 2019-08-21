@@ -8,9 +8,12 @@ class Backend {
     {
         $gestionChapitre = new gestionChapitre();
         $chapitres = $gestionChapitre->getAllPosts();
+        $gestionCommentaire = new gestionCommentaire();
+        $commentaire = $gestionCommentaire->getSignalement();
         $view = new View();
         //$view->addVariable("titre",$contenu);
         $view->addVariable("listeChapitre",$chapitres);
+        $view->addVariable("listeCommentaire",$commentaire);
         $view->generate('view/vueAdministration.php');
     }
 
@@ -45,6 +48,16 @@ class Backend {
     {
         $gestionChapitre = new gestionChapitre();
         $chapitre = $gestionChapitre->createPost($titre, $contenu, $numero_chapitre, $en_ligne);
+        header("Location: index.php?action=administration");
+    }
+    public function supprimerCommentaire($id){
+        $supprimerCommentaire = new gestionCommentaire();
+        $commentaire = $supprimerCommentaire->supprimerCommentaire($id);
+        header("Location: index.php?action=administration");
+    }
+    public function validerCommentaire($id){
+        $validerCommentaire = new gestionCommentaire();
+        $commentaire = $validerCommentaire->validerCommentaire($id);
         header("Location: index.php?action=administration");
     }
 }
