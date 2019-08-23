@@ -14,9 +14,9 @@ if (isset($_GET['action'])) {
             print'Contenu vide !';
         }
     }
-    if ($_GET['action'] == 'submitComment') {
-        if (!empty($_POST['auteurs']) && !empty($_POST['titre']) && !empty($_POST['contenu_commentaire'])) {
-            $frontend->postUnCommentaire($_POST['auteurs'], $_POST['titre'],$_POST['contenu_commentaire']);
+    if ($_GET['action'] == 'ecrireCommentaire') {
+        if (!empty($_POST['auteurs']) && !empty($_POST['titre']) && !empty($_POST['contenu_commentaire'])&& !empty($_GET['id'])) {
+            $frontend->ecrireCommentaire($_POST['auteurs'], $_POST['titre'],$_POST['contenu_commentaire'],$_GET['id']);
         } else {
             print'Contenu vide !';
         }
@@ -41,8 +41,12 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'connexion'){
         $frontend->connexion($_POST['pseudo'],$_POST['mot_de_passe']);
     }
-    if ($_GET['action'] == 'administration'){
-        $backend->afficherAdministration();
+    if ($_GET['action'] == 'administration') {
+        if (isset($_SESSION['pseudo'])) {
+            $backend->afficherAdministration();
+        } else {
+            echo 'Vous n\'êtes pas autorisé à acceder à cette page';
+        }
     }
     if ($_GET['action'] == 'supprimer'){
         $backend->supprimerChapitre($_GET['id']);
@@ -66,6 +70,10 @@ if (isset($_GET['action'])) {
     if ($_GET['action'] == 'validerCommentaire'){
         $backend->validerCommentaire($_GET['id']);
     }
+    if ($_GET['action'] == 'deconnexion'){
+        $backend->deconnexion();
+    }
+
 
 }
 else

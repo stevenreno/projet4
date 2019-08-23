@@ -2,7 +2,7 @@
 require_once('model/abstractManager.php');
 require_once ('model/signalement.php');
 
-class gestionSignalement extends AbstractManager
+class GestionSignalement extends AbstractManager
 {
     public function getSignalement($chapitreId,$commentaireId){
         $db = $this->dbConnect();

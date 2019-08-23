@@ -3,7 +3,7 @@ require_once('model/abstractManager.php');
 require_once ('model/commentaire.php');
 require_once ('model/chapitre.php');
 
-class gestionCommentaire extends AbstractManager {
+class GestionCommentaire extends AbstractManager {
 
     public function getCommentaires($chapitreId){
         $db = $this->dbConnect();
@@ -38,5 +38,10 @@ class gestionCommentaire extends AbstractManager {
         $req = $db->prepare('DELETE from signalement WHERE id_commentaire=?;');
         $newDelete = $req->execute(array($id));
         return $newDelete;
+    }
+    public function ecrireCommentaire($auteurs, $titre, $contenu_commentaire, $id_chapitre){
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO commentaire(auteurs, titre, contenu_commentaire, id_chapitre, date_commentaire)VALUES (?, ?, ?, ?,NOW())');
+        $newPost = $req->execute(array($auteurs, $titre, $contenu_commentaire, $id_chapitre));
     }
 }

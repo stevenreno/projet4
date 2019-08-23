@@ -10,7 +10,7 @@ require_once ('view/view.php');
 class Frontend {
 
     public function listeChapitre(){
-        $gestionChapitre = new gestionChapitre();
+        $gestionChapitre = new GestionChapitre();
         $nombreDeChapitre = $gestionChapitre->getNbChapitre();
         $chapitreParPage = 3;
         $page = $gestionChapitre->page($nombreDeChapitre,$chapitreParPage);
@@ -26,12 +26,12 @@ class Frontend {
 
     }
     public function chapitreEntier($chapitreId){
-        $gestionChapitre = new gestionChapitre();
+        $gestionChapitre = new GestionChapitre();
         $chapitre = $gestionChapitre->getPost($chapitreId);
         $view = new View();
         $view->addVariable("titre","titre du chapitre");
         $view->addVariable('chapitre', $chapitre);
-        $gestionCommentaire = new gestionCommentaire();
+        $gestionCommentaire = new GestionCommentaire();
         $commentaire = $gestionCommentaire->getCommentaires($chapitreId);
         $view->addVariable("commentaire", $commentaire);
         $view->generate('view/vueChapitre.php');
@@ -39,13 +39,13 @@ class Frontend {
     }
     public function postUnCommentaire($titre, $auteurs, $contenu_commentaire)
     {
-        $gestionCommentaire = new gestionCommentaire();
+        $gestionCommentaire = new GestionCommentaire();
         $nouveauxCommentaire = $gestionCommentaire->createPost($titre, $auteurs, $contenu_commentaire);
     }
 
     public function signalerCommentaire($commentaireId)
     {
-        $gestionSignalement = new gestionSignalement();
+        $gestionSignalement = new GestionSignalement();
         $signalement = $gestionSignalement->postSignalement($commentaireId);
     }
     public function afficherConnexion()
@@ -76,5 +76,10 @@ class Frontend {
         } else {
                 echo("Raté");
         }
+    }
+    public function ecrireCommentaire($auteurs, $titre, $contenu_commentaire, $id_chapitre){
+        $gestionCommentaire = new GestionCommentaire();
+        $ecrireCommentaire = $gestionCommentaire->ecrireCommentaire($auteurs, $titre, $contenu_commentaire, $id_chapitre);
+        header("Location: index.php?action=lirePlus&id=".$id_chapitre);
     }
 }

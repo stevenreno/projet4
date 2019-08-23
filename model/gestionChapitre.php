@@ -2,7 +2,7 @@
 require_once('model/abstractManager.php');
 require_once('model/chapitre.php');
 
-class gestionChapitre extends AbstractManager {
+class GestionChapitre extends AbstractManager {
 
     public function getPosts($depart,$chapitreParPage)
     {

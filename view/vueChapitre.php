@@ -6,6 +6,23 @@
         <?php echo $object->_date_creation;?>
     </div>
     </div>
+    <form action="index.php?action=ecrireCommentaire&amp;id=<?=$object->_id;?>" method="post">
+        <div>
+            <label for="auteur">Auteur :</label>
+            <input type="text" id="auteur" name="auteurs">
+        </div>
+        <div>
+            <label for="Titre">Titre : </label>
+            <input type="text" id="titre" name="titre">
+        </div>
+        <div>
+            <label for="texte">Commentaire :</label>
+            <textarea id="texte" name="contenu_commentaire"></textarea>
+        </div>
+        <div class="button">
+            <button type="submit">Envoyer le commentaire</button>
+        </div>
+    </form>
 <?php if (isset($commentaire)) {foreach ($commentaire as $key => $comment) {
     ?>
     <div>
