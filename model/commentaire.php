@@ -13,6 +13,7 @@ class Commentaire extends AbstractEntity{
 
     public function id() { return $this->_id; }
     public function titre() { return $this->_titre; }
+    public function auteurs() {return $this->_auteurs;}
     public function contenu_commentaire() { return $this->_contenu_commentaire; }
     public function signale() { return $this->_signale; }
     public function id_chapitre() { return $this->_id_chapitre; }
@@ -26,6 +27,10 @@ class Commentaire extends AbstractEntity{
     public function setTitre($titre)
     {
         $this->_titre = $titre;
+    }
+    public function setAuteurs($auteurs)
+    {
+        $this->_auteurs = $auteurs;
     }
     public function setContenuCommentaire ($contenu_commentaire)
     {

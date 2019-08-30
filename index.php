@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once ('config.php');
 require_once('controller/frontend.php');
 require_once('controller/backend.php');
 $backend = new Backend();
@@ -8,7 +9,7 @@ $frontend = new Frontend();
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'modifierChapitre') {
-        if (!empty($_POST['titre']) && !empty($_POST['contenu']) && !empty($_POST['numero_chapitre'])&& !empty($_POST['en_ligne'])) {
+        if (!empty($_POST['titre']) && !empty($_POST['contenu']) && !empty($_POST['numero_chapitre'])) {
             $backend->modifierChapitre($_POST['titre'], $_POST['contenu'],  $_POST['en_ligne'],$_POST['numero_chapitre'], $_GET['id']);
         } else {
             print'Contenu vide !';

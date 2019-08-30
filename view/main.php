@@ -7,30 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
     <script>tinymce.init({selector:'textarea'});</script>
+
+
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 </head>
 
 <body>
 <main>
-    <header>
-        <div id="barre-menu">
-            <a href="#" class="header-icon" id="header-icon"></a>
-            <nav id="menu">
-                <ul>
-                    <li><a href="index.php">Accueil</a></li>
+    <header id="header">
+        <nav>
+            <ul class="menu">
+                <a class="logo" href="index.php"><span class="symbol"><img src="assets/images/logo_alaska.jpg"></span></a>
                     <?php
                     if (!empty($_SESSION['pseudo'])) {
-                        echo '<li><a href="#"><i class="fas fa-user"></i> ' . htmlspecialchars($_SESSION['pseudo']) . '</a></li>';
-                        echo '<li><a href="index.php?action=deconnexion">Déconnexion</a></li>';
-                        echo '<li><a href="index.php?action=administration"><i class="fas fa-key"></i> Administration</a></li>';
+                        echo '<li class="current"> <a>Bonjour ' . htmlspecialchars($_SESSION['pseudo']) . '</a></li>';
+                        echo '<li class="current"><a href="index.php?action=deconnexion">Déconnexion</a></li>';
+                        echo '<li class="current"><a href="index.php?action=administration"> Administration</a></li>';
 
                     } else {
                         echo '<li><a href="index.php?action=login">Connexion</a></li>';
                     }
                     ?>
-
-                </ul>
-            </nav>
-        </div>
+            </ul>
+        </nav>
     </header>
 
 <body>
@@ -38,3 +37,5 @@
 ?>
 </body>
 </html>
+<script src="assets/js/supprimer.js"></script>
+<script src="assets/js/main.js"></script>

@@ -2,9 +2,15 @@
 
 class AbstractManager
 {
+    protected static $db = null;
+    public function __construct()
+    {
+        if (self::$db == null){
+            self::$db = new PDO('mysql:host='.DB_HOST.';dbname='.DB_TABLE.';charset=utf8', DB_USER, DB_PASSWORD);
+        }
+    }
     protected function dbConnect()
     {
-        $db = new PDO('mysql:host=localhost;dbname=Projet4;charset=utf8', 'root', '');
-        return $db;
+        return self::$db;
     }
 }

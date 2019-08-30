@@ -11,7 +11,8 @@
         </div>
         <div>
             <label for="titre">En ligne :</label>
-            <input type="checkbox" id="en_ligne" name="en_ligne" value="1" <?php  if($object->_en_ligne == 1){ echo "checked = 'checked'";}?>>
+            <input type="checkbox" id="en_ligne" name="en_ligne" value="1"
+                <?php  if($object->_en_ligne == 1){ echo "checked = 'checked'";}?>>
         </div>
         <div>
             <label for="texte">Texte :</label>

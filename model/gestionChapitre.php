@@ -1,6 +1,7 @@
 <?php
 require_once('model/abstractManager.php');
 require_once('model/chapitre.php');
+require_once ('controller/frontend.php');
 
 class GestionChapitre extends AbstractManager {
 
@@ -8,6 +9,8 @@ class GestionChapitre extends AbstractManager {
     {
         $db = $this->dbConnect();
         $chapitre = array();
+        $depart=intval($depart);
+        $chapitreParPage=intval($chapitreParPage);
         $req = $db->query('SELECT * from chapitre WHERE en_ligne= 1 ORDER BY id DESC LIMIT '.$depart.','.$chapitreParPage);
         while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
             $chapitre[]= new Chapitre($donnees);
@@ -34,16 +37,16 @@ class GestionChapitre extends AbstractManager {
     public function getNbChapitre()
     {
         $db = $this->dbConnect();
-        $totalChapitre = $db->query('SELECT id from chapitre');
+        $totalChapitre = $db->query('SELECT id from chapitre WHERE en_ligne= 1');
         $nombreDeChapitre = $totalChapitre->rowCount();
         return $nombreDeChapitre;
     }
-    public function page($nombreDeChapitre,$chapitreParPage)
+    public function page($nombreDeChapitre,$chapitreParPage)//dans le controller
     {
         $pagesTotales = ceil($nombreDeChapitre/$chapitreParPage);
         return $pagesTotales;
     }
-    public function getPageActuelle()
+    public function getPageActuelle()//dans le controller
     {
         if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0) {
             $_GET['page'] = intval($_GET['page']);

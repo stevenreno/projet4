@@ -12,7 +12,7 @@ class Frontend {
     public function listeChapitre(){
         $gestionChapitre = new GestionChapitre();
         $nombreDeChapitre = $gestionChapitre->getNbChapitre();
-        $chapitreParPage = 3;
+        $chapitreParPage = NB_CHAPITRE_PAR_PAGES;
         $page = $gestionChapitre->page($nombreDeChapitre,$chapitreParPage);
         $pageCourante = $gestionChapitre->getPageActuelle();
         $depart = ($pageCourante-1)*$chapitreParPage;
@@ -23,7 +23,6 @@ class Frontend {
         $view->addVariable("pageCourante",$pageCourante);
         $view->addVariable("pagesTotales", $page);
         $view->generate('view/vueAccueil.php');
-
     }
     public function chapitreEntier($chapitreId){
         $gestionChapitre = new GestionChapitre();
@@ -37,6 +36,12 @@ class Frontend {
         $view->generate('view/vueChapitre.php');
 
     }
+
+    /**
+     * @param $titre
+     * @param $auteurs
+     * @param $contenu_commentaire
+     */
     public function postUnCommentaire($titre, $auteurs, $contenu_commentaire)
     {
         $gestionCommentaire = new GestionCommentaire();
@@ -68,13 +73,15 @@ class Frontend {
             {
                 $_SESSION['id']= $id;
                 $_SESSION['pseudo']=$pseudo;
-                header("Location: index.php");
+                header("Location: index.php?action=administration");
                 //echo ("redirection vers le backend");
             } else {
                 echo("connexion raté");
             }
         } else {
                 echo("Raté");
+                header("Location: index.php?action=login");
+
         }
     }
     public function ecrireCommentaire($auteurs, $titre, $contenu_commentaire, $id_chapitre){

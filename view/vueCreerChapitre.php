@@ -1,4 +1,4 @@
-<form action="index.php?action=envoyerChapitre" method="post">
+<form class="formulaire" action="index.php?action=envoyerChapitre" method="post">
     <div>
         <label for="chapitre">Chapitre : </label>
         <input type="number" id="numero_chapitre" name="numero_chapitre">
@@ -15,7 +15,7 @@
         <label for="texte">Texte :</label>
         <textarea id="texte" name="contenu"></textarea>
     </div>
-    <div class="button">
+    <div class="post_commentaire">
         <button type="submit">Envoyer le chapitre</button>
     </div>
 </form>
