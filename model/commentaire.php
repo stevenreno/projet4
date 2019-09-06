@@ -3,21 +3,21 @@ require_once ('model/gestionCommentaire.php');
 require_once ('model/abstractEntity.php');
 
 class Commentaire extends AbstractEntity{
-    public $_id;
-    public $_titre;
-    public $_auteurs;
-    public $_contenu_commentaire;
-    public $_signale;
-    public $_id_chapitre;
-    public $_date_commentaire;
+    private $_id;
+    private $_titre;
+    private $_auteurs;
+    private $_contenu_commentaire;
+    private $_signale;
+    private $_id_chapitre;
+    private $_date_commentaire;
 
-    public function id() { return $this->_id; }
-    public function titre() { return $this->_titre; }
-    public function auteurs() {return $this->_auteurs;}
-    public function contenu_commentaire() { return $this->_contenu_commentaire; }
-    public function signale() { return $this->_signale; }
-    public function id_chapitre() { return $this->_id_chapitre; }
-    public function date_commentaire() { return $this->_date_commentaire; }
+    public function getId() { return $this->_id; }
+    public function getTitre() { return $this->_titre; }
+    public function getAuteurs() {return $this->_auteurs;}
+    public function getContenuCommentaire() { return $this->_contenu_commentaire; }
+    public function getSignale() { return $this->_signale; }
+    public function getIdChapitre() { return $this->_id_chapitre; }
+    public function getDateCommentaire() { return $this->_date_commentaire; }
 
 
     public function setId($id)
@@ -40,11 +40,11 @@ class Commentaire extends AbstractEntity{
     {
         $this->_signale = $signale;
     }
-    public function setId_Chapitre ($id_chapitre)
+    public function setIdChapitre ($id_chapitre)
     {
         $this->_id_chapitre = $id_chapitre;
     }
-    public function setDate_Commentaire ($date_commentaire)
+    public function setDateCommentaire ($date_commentaire)
     {
         $this->_date_commentaire = $date_commentaire;
     }

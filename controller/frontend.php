@@ -9,7 +9,7 @@ require_once ('view/view.php');
    
 class Frontend {
 
-    public function listeChapitre(){
+    public function listeChapitre($message = null){
         $gestionChapitre = new GestionChapitre();
         $nombreDeChapitre = $gestionChapitre->getNbChapitre();
         $chapitreParPage = NB_CHAPITRE_PAR_PAGES;
@@ -19,12 +19,13 @@ class Frontend {
         $chapitres = $gestionChapitre->getPosts($depart,$chapitreParPage);
         $view = new View();
         //$view->addVariable("titre",$contenu);
+        $view->addVariable("message",$message);
         $view->addVariable("listeChapitre",$chapitres);
         $view->addVariable("pageCourante",$pageCourante);
         $view->addVariable("pagesTotales", $page);
         $view->generate('view/vueAccueil.php');
     }
-    public function chapitreEntier($chapitreId){
+    public function chapitreEntier($chapitreId,$message = null){
         $gestionChapitre = new GestionChapitre();
         $chapitre = $gestionChapitre->getPost($chapitreId);
         $view = new View();
@@ -33,6 +34,7 @@ class Frontend {
         $gestionCommentaire = new GestionCommentaire();
         $commentaire = $gestionCommentaire->getCommentaires($chapitreId);
         $view->addVariable("commentaire", $commentaire);
+        $view->addVariable("message", $message);
         $view->generate('view/vueChapitre.php');
 
     }
@@ -42,20 +44,19 @@ class Frontend {
      * @param $auteurs
      * @param $contenu_commentaire
      */
-    public function postUnCommentaire($titre, $auteurs, $contenu_commentaire)
-    {
-        $gestionCommentaire = new GestionCommentaire();
-        $nouveauxCommentaire = $gestionCommentaire->createPost($titre, $auteurs, $contenu_commentaire);
-    }
-
     public function signalerCommentaire($commentaireId)
     {
+        $gestionCommentaire = new GestionCommentaire();
+        $commentaire = $gestionCommentaire->getCommentaire($commentaireId);
         $gestionSignalement = new GestionSignalement();
         $signalement = $gestionSignalement->postSignalement($commentaireId);
+        $this->chapitreEntier($commentaire->getIdChapitre(),"<div id='blockMessage'><p>Le commentaire a été signalé</p></div>");
+
     }
-    public function afficherConnexion()
+    public function afficherConnexion($message = null)
     {
         $view = new View();
+        $view->addVariable('message',$message);
         $view->generate('view/vueConnexion.php');
     }
 
@@ -65,28 +66,28 @@ class Frontend {
         $connexion = $gestionConnexion->connexion($pseudo);
         if (isset($connexion)){
             foreach ($connexion as $key => $object){
-                $id = $object->_id;
-                $pseudo = $object->_pseudo;
-                $mot_de_passe = $object->_mot_de_passe;
+                $id = $object->getId();
+                $pseudo = $object->getPseudo();
+                $mot_de_passe = $object->getMotDePasse();
             }
             if (md5($_POST['mot_de_passe']) == $mot_de_passe)
             {
                 $_SESSION['id']= $id;
                 $_SESSION['pseudo']=$pseudo;
                 header("Location: index.php?action=administration");
-                //echo ("redirection vers le backend");
-            } else {
-                echo("connexion raté");
             }
         } else {
-                echo("Raté");
-                header("Location: index.php?action=login");
-
+                $this->afficherConnexion("<div id='blockMessage'><p>Pseudo ou/et mot de passe incorrect</p></div>");
         }
     }
     public function ecrireCommentaire($auteurs, $titre, $contenu_commentaire, $id_chapitre){
         $gestionCommentaire = new GestionCommentaire();
         $ecrireCommentaire = $gestionCommentaire->ecrireCommentaire($auteurs, $titre, $contenu_commentaire, $id_chapitre);
-        header("Location: index.php?action=lirePlus&id=".$id_chapitre);
+        $this->chapitreEntier($id_chapitre,"<div id='blockMessage'><p>Commentaire posté</p></div>");
+    }
+    public function supprimerCommentaireFront($id, $chapitre_id){
+        $supprimerCommentaire = new GestionCommentaire();
+        $commentaire = $supprimerCommentaire->supprimerCommentaire($id);
+        $this->chapitreEntier($chapitre_id,"<div id='blockMessage'><p>Commentaire supprimé</p></div>");
     }
 }

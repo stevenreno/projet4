@@ -11,7 +11,7 @@ class GestionChapitre extends AbstractManager {
         $chapitre = array();
         $depart=intval($depart);
         $chapitreParPage=intval($chapitreParPage);
-        $req = $db->query('SELECT * from chapitre WHERE en_ligne= 1 ORDER BY id DESC LIMIT '.$depart.','.$chapitreParPage);
+        $req = $db->query('SELECT * from chapitre WHERE en_ligne= 1 ORDER BY numero_chapitre LIMIT '.$depart.','.$chapitreParPage);
         while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
             $chapitre[]= new Chapitre($donnees);
         }
@@ -22,10 +22,10 @@ class GestionChapitre extends AbstractManager {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT * from chapitre WHERE id=?');
         $req->execute(array($chapitreId));
-        while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
-            $chapitre[]= new Chapitre($donnees);
+        if ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
+            return new Chapitre($donnees);
         }
-        return $chapitre;
+        return null;
     }
     public function createPost($titre, $contenu, $numero_chapitre, $en_ligne) {
         $db = $this->dbConnect();
@@ -59,7 +59,7 @@ class GestionChapitre extends AbstractManager {
     public function getAllPosts(){
         $db = $this->dbConnect();
         $chapitre = array();
-        $req = $db->query('SELECT * from chapitre');
+        $req = $db->query('SELECT * from chapitre ORDER BY numero_chapitre');
         while ($donnees = $req->fetch(PDO::FETCH_ASSOC)){
             $chapitre[]= new Chapitre($donnees);
         }

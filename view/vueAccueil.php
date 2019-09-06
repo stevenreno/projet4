@@ -1,11 +1,12 @@
 <div class="main">
-<?php foreach ($listeChapitre as $key => $object) {
+
+<?php echo $message;
+foreach ($listeChapitre as $key => $object) {
 ?>
     <section>
-        <h1>Chapitre n°<?php echo $object->_numero_chapitre;?> : <?php echo $object->_titre; ?></h1>
-        <p><?php $contenu = substr($object->_contenu, 0,500); echo $contenu."[...]";?></p>
-        <p><?php echo $object->_date_creation;?></p>
-        <a href="index.php?action=lirePlus&amp;id=<?=$object->_id;?>">Lire plus</a>
+        <h1>Chapitre n°<?php echo $object->getNumeroChapitre();?> : <?php echo $object->getTitre(); ?></h1>
+        <p><?php $contenu = substr($object->getContenu(), 0,500); echo $contenu."[...]";?></p>
+        <a href="index.php?action=lirePlus&amp;id=<?=$object->getId();?>">Lire plus</a>
     </section>
 
 <?php };?>

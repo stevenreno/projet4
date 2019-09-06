@@ -1,3 +1,4 @@
+<p><?php echo $message ?></p>
 <form action="index.php?action=connexion" method='post'>
 <table>
   <tr>

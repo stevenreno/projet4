@@ -7,9 +7,9 @@ class Signalement extends AbstractEntity{
     public $_id_commentaire;
     public $_date_signalement;
 
-    public function id() { return $this->_id; }
-    public function id_commentaire() { return $this->_id_commentaire; }
-    public function date_signalement() { return $this->_date_signalement; }
+    public function getId() { return $this->_id; }
+    public function getIdCommentaire() { return $this->_id_commentaire; }
+    public function getDateSignalement() { return $this->_date_signalement; }
 
 
     public function setId($id)

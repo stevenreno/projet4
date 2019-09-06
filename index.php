@@ -36,6 +36,9 @@ if (isset($_GET['action'])) {
             print '';
         }
     }
+    if ($_GET['action'] == 'supprimerCommentaireFront'){
+        $frontend->supprimerCommentaireFront($_GET['id'],$_GET['id_chapitre']);
+    }
     if ($_GET['action'] == 'login') {
         $frontend->afficherConnexion();
     }
@@ -46,7 +49,7 @@ if (isset($_GET['action'])) {
         if (isset($_SESSION['pseudo'])) {
             $backend->afficherAdministration();
         } else {
-            echo 'Vous n\'êtes pas autorisé à acceder à cette page';
+            $frontend->listeChapitre("<div id='blockMessage'><p>Vous n'êtes pas autorisé à accéder à cette page</p></div>");
         }
     }
     if ($_GET['action'] == 'supprimer'){

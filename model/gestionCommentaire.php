@@ -16,6 +16,15 @@ class GestionCommentaire extends AbstractManager {
                 return $commentaire;
             }
     }
+    public function getCommentaire($commentaireId){
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * from commentaire WHERE id=?');
+        $req->execute(array($commentaireId));
+        if ($donnees = $req->fetch(PDO::FETCH_ASSOC)) {
+            return new Commentaire($donnees);
+        }
+        return null;
+    }
     public function getSignalement(){
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT COUNT(signalement.id) AS "nombresSignalement" , contenu_commentaire, commentaire.id from signalement, commentaire WHERE signalement.id_commentaire = commentaire.id GROUP BY id_commentaire ORDER BY nombresSignalement DESC ;');
